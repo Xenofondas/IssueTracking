@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context path="/JavaServletWeld">
+    
+    <Resource name="BeanManager" 
+               auth="Container"
+               type="javax.enterprise.inject.spi.BeanManager"
+               factory="org.jboss.weld.resources.ManagerObjectFactory" />
+               
+    <Resource 
+    	name="jdbc/trackingdb"
+    	auth="Container"
+    	type="javax.sql.DataSource"
+    	maxActive="100"
+    	maxIdle="30"
+    	maxWait="10000"
+    	driverClassName="com.mysql.jdbc.Driver"
+    	url="jdbc:mysql://localhost:3306/trackingdb"
+    	username="root"
+    	password="Laimair0p0!@"    
+    />
+     
+</Context>
