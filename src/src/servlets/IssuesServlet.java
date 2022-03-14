@@ -55,6 +55,18 @@ public class IssuesServlet extends HttpServlet {
         
 		context.setVariable("username",username);
 		
+		
+		if(request.getParameter("status")!=null) {
+			try {
+				List<Issue> issues = issueService.filterByStatus(request.getParameter("status"));
+				context.setVariable("issues",issues);
+				context.setVariable("statusFilter",request.getParameter("status"));
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}else {		
+		
 		try {
 			List<Issue> issues = issueService.getAllIssues();
 			context.setVariable("issues",issues);
@@ -62,14 +74,12 @@ public class IssuesServlet extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}		
-		
+	}
         engine.process("issues.html", context, response.getWriter());
         
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(request.getServletContext());
        // WebContext context = new WebContext(request, response, request.getServletContext());
@@ -90,6 +100,14 @@ public class IssuesServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 			
+			}else if("filter".equals(request.getParameter("action"))) {
+				String status = request.getParameter("statusFilter");		
+				
+				if(status.equals("without")) {
+					response.sendRedirect(request.getContextPath() + "/IssuesServlet");
+				}else {
+					response.sendRedirect(request.getContextPath() + "/IssuesServlet?status="+status);
+				}		
 			}
 		}else {
 			

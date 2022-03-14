@@ -100,6 +100,31 @@ public class IssueService {
 		
 	}
 	
+	public List<Issue> filterByStatus(String status) throws SQLException {
+		
+		List<Issue> issues = new ArrayList<Issue>();
+		String query = "SELECT * FROM ist_issues WHERE status='"+status+"'";
+
+		
+		connection= DbUtil.getConnection();
+	    PreparedStatement preparedStatement = connection.prepareStatement(query); 
+	    ResultSet rs = preparedStatement.executeQuery();
+	    
+        while (rs.next()) {
+        	issues.add(new Issue(rs.getLong("id"), rs.getString("title"),rs.getString("description"),rs.getString("category"),rs.getString("time_created"),
+        			rs.getString("time_modified"),rs.getString("created_by"),rs.getString("status"),
+        			rs.getString("assigned_to"),rs.getString("modified_by")));
+        	
+		
+        // do something with the extracted data...
+    }
+	   
+        
+	    System.out.println("Length: "+issues);	
+		return issues;
+	}
+	
+	
 	
 	
 }
