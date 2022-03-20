@@ -16,7 +16,7 @@
     	driverClassName="com.mysql.jdbc.Driver"
     	url="jdbc:mysql://localhost:3306/trackingdb"
     	username="root"
-    	password="Laimair0p0!@"    
+    	password=""    
     />
      
 </Context>
